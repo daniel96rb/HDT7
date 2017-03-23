@@ -92,4 +92,3 @@ public class BinaryTree<E> extends Object {
      /* Compute the "maxDepth" of a tree -- the number of 
         nodes along the longest path from the root node 
         down to the farthest leaf node.*/
-}
