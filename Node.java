@@ -1,34 +1,32 @@
-public class Node {
-  private Node leftNode;
-  private Node rightNode;
-  private int value;
+/**
+* Clase: Node.java
+* Clase que permite crear los diferentes nodos del arbol/bosque binario.
+* @author Daniel Rodriguez, Ana Lucia Leppe
+*/
 
-  /**
-   * Node constructor with initial Node value
-   *
-   * @param value Initial value for this node
-   */
-  public Node(int value) {
-    leftNode = null;
-    rightNode = null;
-    this.value = value;
-  }
+public class Node{
 
-  /**
-   * Set left node pointer for this Node
-   *
-   * @param node Left node for this Node
-   */
-  public void setLeftNode(Node node){
-    this.leftNode = node;
+    Node left;
+    Association<String,String> miLista =new Association<>();
+    Node right;
+    int value;
+    //Inicializacion
+    public Node (Association datos)
+    {
+        miLista = datos;
+        left = right = null;
+    }
+
+    public void setleft(Node node){
+    this.left = node;
   }
   /**
    * Set right node pointer for this Node
    *
    * @param node Right node for this Node
    */
-  public void setRightNode(Node node){
-    this.rightNode = node;
+  public void setright(Node node){
+    this.right = node;
   }
   /**
    * Set value for this Node
@@ -42,14 +40,14 @@ public class Node {
   /**
    * @return Left node for this Node
    */
-  public Node getLeftNode() {
-    return leftNode;
+  public Node getleft() {
+    return left;
   }
   /**
    * @return Right node for this Node
    */
-  public Node getRightNode() {
-    return rightNode;
+  public Node getright() {
+    return right;
   }
   /**
    * @return Current value for this Node
@@ -64,8 +62,30 @@ public class Node {
   @Override
     public String toString() {
       String result = value + "";
-      if (leftNode  != null) result = leftNode.toString() + "-" + result;
-      if (rightNode != null) result = result + "-" + rightNode.toString();
+      if (left  != null) result = left.toString() + "-" + result;
+      if (right != null) result = result + "-" + right.toString();
       return result;
+    }
+
+    //Metodo que permite insertar un nuevo Nodo
+    public  void insertar(Association<String,String> nuevoValor)
+    {
+
+    String palabra=nuevoValor.getKey();
+    //Agrega un arbol izquierdo
+    if(palabra.compareTo(miLista.getKey())<0){
+        if(left == null){
+            left = new Node(nuevoValor);}
+        else
+          left.insertar(nuevoValor);
+    }
+    //Agraga un arbol derecho
+    if(palabra.compareTo(miLista.getKey())>0){
+        if(right == null){
+            right = new Node(nuevoValor);
+        }
+        else
+          right.insertar(nuevoValor);
+    }
     }
 }
