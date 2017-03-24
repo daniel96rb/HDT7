@@ -1,126 +1,61 @@
-import java.util.Map;
-public class Association {
- // A class for binding key/value pairs.
- /*
- public class Association<K,V>
- */
- public class Association<K,V> implements Map.Entry<K,V>, Comparable<Association<K,V>>
- {
-     /**
-      * The immutable key.  An arbitrary object.
-      */
-     protected K theKey; // the key of the key-value pair
-     /**
-      * The mutable value.  An arbitrary object.
-      */
-     protected V theValue; // the value of the key-value pair
-     /*
-       for example:
-       Association<String,Integer> personAttribute =
-          new Assocation<String,Integer>("Age",34);
-      */
-     /**
-      * Constructs a pair from a key and value.
-      *
-      * @pre key is non-null
-      * @post constructs a key-value pair
-      * @param key A non-null object.
-      * @param value A (possibly null) object.
-      */
-     public Association(K key, V value)
-     {
-         
-         theKey = key;
-         theValue = value;
-     }
-     /**
-      * Constructs a pair from a key; value is null.
-      *
-      * @pre key is non-null
-      * @post constructs a key-value pair; value is null
-      * @param key A non-null key value.
-      */
-     public Association(K key)
-     {
-         this(key,null);
-     }
-     /**
-      * Standard comparison function.  Comparison based on keys only.
-      *
-      * @pre other is non-null Association
-      * @post returns true iff the keys are equal
-      * @param other Another association.
-      * @return true iff the keys are equal.
-      */
-     public boolean equals(Object other)
-     {
-         Association otherAssoc = (Association)other;
-         return getKey().equals(otherAssoc.getKey());
-     }
-     
-     /**
-      * Standard hashcode function.
-      *
-      * @post return hash code association with this association
-      * @return A hash code for association.
-      * @see Hashtable
-      */
-     public int hashCode()
-     {
-         return getKey().hashCode();
-     }
-     
-     /**
-      * Fetch value from association.  May return null.
-      *
-      * @post returns value from association
-      * @return The value field of the association.
-      */
-     public V getValue()
-     {
-         return theValue;
-     }
-     /**
-      * Fetch key from association.  Should not return null.
-      *
-      * @post returns key from association
-      * @return Key of the key-value pair.
-      */
-     public K getKey()
-     {
-         return theKey;
-     }
-     /**
-      * Sets the value of the key-value pair.
-      *
-      * @post sets association's value to value
-      * @param value The new value.
-      */
-     public V setValue(V value)
-     {
-         V oldValue = theValue;
-         theValue = value;
-         return oldValue;
-     }
-     /**
-      * Standard string representation of an association.
-      *
-      * @post returns string representation
-      * @return String representing key-value pair.
-      */
-     public String toString()
-     {
-         StringBuffer s = new StringBuffer();
-         s.append("<Association: "+getKey()+"="+getValue()+">");
-         return s.toString();
-     }
-     /*
- ...
- */
-  @Override
-  public int compareTo(Association<K, V> arg0) {
-   // TODO Auto-generated method stub
-   return 0;
-  }
- }
+/**
+* Clase: Association.java
+* Clase que permite las asociaciones de las palabras (ingles, espaniol) del diccionario
+* @author Daniel Rodriguez, Ana Lucia Leppe
+*/
+
+import java.io.*;
+
+
+public class Association<K,V> {
+	protected K ingles;
+	protected V espaniol;
+	//Metodos
+	public Association()
+	// post: constructor that generates an empty node
+	{
+		ingles = null;
+		espaniol = null;
+	}
+	public Association(K ingles,  V espaniol){
+		this.ingles= ingles;
+		this.espaniol = espaniol;
+
+		}
+	//Metodos Sets
+	public void setEnglish(K palabra){
+		ingles = palabra;
+	}
+	public void setSpanish(V palabra){
+		espaniol = palabra;
+	}
+	public K getKey(){
+		return ingles;
+	}
+	public V getValue(){
+		return espaniol;
+	}
+
+	//Metodo que realiza la lectura del archivo y realiza las particiones en las palabras que luego seran traducidas.
+    public String lectura(String direccion) {
+		String res = "";
+		String temp = "";
+		try {
+			FileReader f = new FileReader(direccion);
+			BufferedReader b = new BufferedReader(f);
+			try {
+				while ((temp = b.readLine()) != null) {
+					res += temp + "-";
+				}
+				b.close();
+			} catch (IOException e) {
+				return "";
+			}
+		} catch (FileNotFoundException e) {
+			return "";
+		}
+		return res;
+	}
+
+
 }
